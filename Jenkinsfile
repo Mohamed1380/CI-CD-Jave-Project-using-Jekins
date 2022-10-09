@@ -24,7 +24,7 @@ pipeline {
         stage ("Integration Testing"){
             steps {
                 
-                sh 'mvn verfiy -DskipUnitTest'
+                sh 'mvn verify -DskipUnitTest'
             }
         }
     }
