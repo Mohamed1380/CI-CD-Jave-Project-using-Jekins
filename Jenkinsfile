@@ -55,6 +55,29 @@ pipeline {
                }
             }
         }
+
+        stage ("Upload files to Nexus Repo"){
+            steps {
+                script {
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'springboot', 
+                            classifier: '', 
+                            file: 'target/Myapp.jar', 
+                            type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'nexus-secret', 
+                    groupId: 'com.example', 
+                    nexusUrl: '44.205.15.173:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'javaapp-release', 
+                    version: '1.0.0'
+                }
+            }
+        }
     }
 
 }
