@@ -1,4 +1,4 @@
-FROM maven as build
+FROM maven:alpine as build
 WORKDIR /app
 COPY . .
 RUN mvn install
