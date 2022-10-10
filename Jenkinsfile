@@ -86,7 +86,7 @@ pipeline {
 
         stage ("Build Docker Image"){
             steps {
-                sh 'docker bulid . -t $JOB_NAME:v1.$BUILD_NUMBER'
+                sh 'docker image bulid -t $JOB_NAME:v1.$BUILD_NUMBER .'
                 sh 'docker image tag $JOB_NAME:v1.$BUILD_NUMBER hamo138/$JOB_NAME:v1.$BUILD_NUMBER'
                 sh 'docker image tag $JOB_NAME:v1.$BUILD_NUMBER hamo138/$JOB_NAME:latest'
             }
