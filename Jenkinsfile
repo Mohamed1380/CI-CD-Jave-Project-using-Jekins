@@ -76,7 +76,7 @@ pipeline {
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'javaapp-release', 
-                    version: '${pom.version}'
+                    version: ${pom.version}
                 }
             }
         }
