@@ -95,6 +95,19 @@ pipeline {
             }
 
         }
+
+        stage ("Push Docker Image to Dockerhub"){
+            steps {
+    
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'username')]){
+                        sh 'docker login -u ${username} -p ${pass}'
+                        sh 'docker push hamo138/$JOB_NAME:v1.$BUILD_NUMBER'
+                        sh 'docker push hamo138/$JOB_NAME:latest'
+                    }
+    
+            }
+
+        }
     }
 
 }
