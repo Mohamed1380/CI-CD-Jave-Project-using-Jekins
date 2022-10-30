@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven 'maven-3.8.6'
+        terraform 'terraform'
     }
 
     stages {
@@ -108,6 +109,20 @@ pipeline {
             }
 
         }
+        // CD Build infra
+        stage ("Build EKS Cluster"){
+            
+            steps{
+                dir("aws_infra_eks"){
+                    script{
+                    sh 'terraform init'
+                    sh 'terraform apply terraform plan --var-files ./config/terraform.tfvars -auto-aprove'
+                }
+
+                }
+
+            }
+        } 
     }
 
 }
