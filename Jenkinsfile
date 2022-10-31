@@ -5,6 +5,9 @@ pipeline {
         maven 'maven-3.8.6'
         terraform 'terraform'
     }
+    parameters{
+        string(name: 'ship', defaultValue: 'yes')
+    }
 
     stages {
 
@@ -111,8 +114,8 @@ pipeline {
         }
         // CD Build infra
         stage ("Build EKS Cluster"){
-            def run= 1
-            when {${run} == 0}
+
+            when { expersion { params.ship == 'no' } }
             steps{
                 dir("aws_infra_eks"){
                     script{
