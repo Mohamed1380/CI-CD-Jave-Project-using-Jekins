@@ -120,7 +120,7 @@ pipeline {
                 dir("aws_infra_eks"){
                     script{
                         sh 'terraform init'
-                        sh 'terraform apply -var-file=./config/terraform.tfvars -auto-approve'
+                        sh 'terraform destroy -var-file=./config/terraform.tfvars -auto-approve'
                     }
 
                 }
@@ -128,22 +128,22 @@ pipeline {
             }
         } 
 
-        stage ("connect to eks"){
-            steps{
-                sh 'aws eks --region us-east-1 update-kubeconfig --name demo-cluster'
+        // stage ("connect to eks"){
+        //     steps{
+        //         sh 'aws eks --region us-east-1 update-kubeconfig --name demo-cluster'
 
-            }
-        }
+        //     }
+        // }
 
-        stage ("Deploy app on eks"){
-            steps{
-                dir("K8S_mainfest files"){
+        // stage ("Deploy app on eks"){
+        //     steps{
+        //         dir("K8S_mainfest files"){
 
-                    sh 'kubectl apply -f .'
-                }
+        //             sh 'kubectl apply -f .'
+        //         }
 
-            }
-        }
+        //     }
+        // }
     }
 
 }
