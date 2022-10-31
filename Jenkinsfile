@@ -138,8 +138,8 @@ pipeline {
         stage ("Deploy app on eks"){
             steps{
                 dir("K8S_mainfest files"){
-                    
-                    sh 'kubectl apply .'
+
+                    sh 'kubectl apply -f .'
                 }
 
             }
