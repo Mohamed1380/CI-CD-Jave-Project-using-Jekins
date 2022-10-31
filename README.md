@@ -8,3 +8,6 @@
 - Terraform
 ## CI/CD Pipeline
 ![This is an image](./images/test.drawio.png)
+
+## use loadbalancer service to access app
+![This is an image](./images/prove.png)
