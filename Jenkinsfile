@@ -115,9 +115,9 @@ pipeline {
             steps{
                 dir("aws_infra_eks"){
                     script{
-                    sh 'terraform init'
-                    sh 'terraform apply terraform plan --var-files ./config/terraform.tfvars -auto-aprove'
-                }
+                        sh 'terraform init'
+                        sh 'terraform apply terraform plan --var-files ./config/terraform.tfvars -auto-aprove'
+                    }
 
                 }
 
