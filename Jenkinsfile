@@ -5,9 +5,9 @@ pipeline {
         maven 'maven-3.8.6'
         terraform 'terraform'
     }
-    parameters{
-        string(name: 'ship', defaultValue: 'yes')
-    }
+    // parameters{
+    //     string(name: 'skip', defaultValue: 'yes')
+    // }
 
     stages {
 
@@ -113,37 +113,38 @@ pipeline {
 
         }
         // CD Build infra
-        stage ("Build EKS Cluster"){
 
-            when { expression { params.ship == 'no' } }
-            steps{
-                dir("aws_infra_eks"){
-                    script{
-                        sh 'terraform init'
-                        sh 'terraform destroy -var-file=./config/terraform.tfvars -auto-approve'
-                    }
+        // stage ("Build EKS Cluster"){
 
-                }
-
-            }
-        } 
-
-        // stage ("connect to eks"){
+        //     when { expression { params.ship == 'no' } }
         //     steps{
-        //         sh 'aws eks --region us-east-1 update-kubeconfig --name demo-cluster'
+        //         dir("aws_infra_eks"){
+        //             script{
+        //                 sh 'terraform init'
+        //                 sh 'terraform destroy -var-file=./config/terraform.tfvars -auto-approve'
+        //             }
 
-        //     }
-        // }
-
-        // stage ("Deploy app on eks"){
-        //     steps{
-        //         dir("K8S_mainfest files"){
-
-        //             sh 'kubectl apply -f .'
         //         }
 
         //     }
-        // }
+        // } 
+
+        stage ("connect to eks"){
+            steps{
+                sh 'aws eks --region us-east-1 update-kubeconfig --name demo-cluster'
+
+            }
+        }
+
+        stage ("Deploy app on eks"){
+            steps{
+                dir("K8S_mainfest files"){
+
+                    sh 'kubectl apply -f .'
+                }
+
+            }
+        }
     }
 
 }
