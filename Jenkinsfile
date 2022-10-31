@@ -115,7 +115,7 @@ pipeline {
         // CD Build infra
         stage ("Build EKS Cluster"){
 
-            when { expersion { params.ship == 'no' } }
+            when { expression { params.ship == 'no' } }
             steps{
                 dir("aws_infra_eks"){
                     script{
