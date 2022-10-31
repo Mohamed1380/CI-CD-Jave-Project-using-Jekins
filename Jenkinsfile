@@ -111,7 +111,8 @@ pipeline {
         }
         // CD Build infra
         stage ("Build EKS Cluster"){
-            
+            def run= 1
+            when {${run} == 0}
             steps{
                 dir("aws_infra_eks"){
                     script{
@@ -123,6 +124,13 @@ pipeline {
 
             }
         } 
+
+        stage ("connect to eks"){
+            steps{
+                sh 'aws eks --region us-east-1 update-kubeconfig --name demo-cluster'
+
+            }
+        }
     }
 
 }
